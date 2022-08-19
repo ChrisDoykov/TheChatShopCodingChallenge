@@ -1,0 +1,10 @@
+type Query {
+  #  Public APIs
+  getFact: Fact!
+}
+
+type Fact {
+  text: String! # The fact itself
+}
+
+scalar DateTime
