@@ -4,26 +4,34 @@
  * Purpose: Resolvers for all queries related to public API calls
  */
 
+// Axios for requests
 import axios from "axios";
+
+// Validators for incoming user input
+import isEmail from "validator/lib/isEmail";
+
+// Rate limiting
 import { getGraphQLRateLimiter } from "graphql-rate-limit";
+
+// Models
 import { Fact } from "../../../graphql/Fact";
 
+// Constant declarations
 const factsLimit = 1;
 const API_URL = `https://api.api-ninjas.com/v1/facts?limit=${factsLimit}`;
-
-let axiosInstance = axios.create({
+const axiosInstance = axios.create({
   headers: {
     "X-Api-Key": `${process.env.API_KEY}`,
   },
 });
-
 const rateLimiter = getGraphQLRateLimiter({
-  identifyContext: (ctx: any) => ctx.id,
+  identifyContext: (ctx: { id: string }) => ctx.id,
 });
 
+// Resolver
 export const getFact = async (
   parent: undefined,
-  args: any,
+  args: { email: string },
   context: any,
   info: any
 ) => {
@@ -43,8 +51,23 @@ export const getFact = async (
 
   // Else proceed as normal
   try {
+    const { email } = args;
+
+    // Verify the provided email is valid
+    if (!email || !isEmail(email)) {
+      throw new Error("Invalid email input!");
+    }
+
+    /*
+      Here we could potentially use the email for
+      something like a notification via nodemailer
+      or something similar...
+    */
+
+    // Request the fact data
     const { data } = await axiosInstance.get(API_URL);
 
+    // If there is data
     if (data && data.length) {
       let fact: Fact = {
         text: data[0].fact,
@@ -52,6 +75,7 @@ export const getFact = async (
 
       return fact;
     } else {
+      // If no data is found
       throw new Error("No facts were returned!");
     }
   } catch (e: any) {

@@ -1,10 +1,13 @@
+#  Author: Kristiyan Doykov
+#  Last updated: 19/08/2022
+#  Purpose: Describes the GraphQL
+#  schema for this project.
+
 type Query {
   #  Public APIs
-  getFact: Fact!
+  getFact(email: String!): Fact!
 }
 
 type Fact {
   text: String! # The fact itself
 }
-
-scalar DateTime

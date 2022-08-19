@@ -1,9 +1,16 @@
+/*
+ * Author: Kristiyan Doykov
+ * Last updated: 19/08/2022
+ * Purpose: Utilizes unit tests to ensure
+ * queries are running as expected.
+ */
+
 // Import the server creator function
 import { createServer } from "../server";
 
 // Sample test query
 const testQuery = `query GetFactQuery {
-    getFact {
+    getFact(email: "test@mail.com") {
         text
     }
   }`;
