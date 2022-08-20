@@ -8,24 +8,45 @@
 // Import the server creator function
 import { createServer } from "../server";
 
-// Sample test query
-const testQuery = `query GetFactQuery {
+// Sample test queries
+const validQuery = `query GetFactQuery {
     getFact(email: "test@mail.com") {
         text
     }
   }`;
 
-// Sample test case
+const invalidQuery = `query GetFactQuery {
+    getFact(email: "test") {
+        text
+    }
+  }`;
+
+// Sample valid test case
 it("returns a random non-null fact", async () => {
   // Instantiate the server on an ephermal port
   const server = await createServer({ port: 0 });
 
-  // Result of the test operation
-  const result = await server.executeOperation({
-    query: testQuery,
+  // Results of the test operation
+  const resultValid = await server.executeOperation({
+    query: validQuery,
   });
 
   // Expect no errors and a non-null fact
-  expect(result.errors).toBeUndefined();
-  expect(result.data?.getFact).toHaveProperty("text");
+  expect(resultValid.errors).toBeUndefined();
+  expect(resultValid.data?.getFact).toHaveProperty("text");
+});
+
+// Sample invalid test case
+it("should fail due to invalid email input", async () => {
+  // Instantiate the server on an ephermal port
+  const server = await createServer({ port: 0 });
+
+  // Results of the test operation
+  const resultInvalid = await server.executeOperation({
+    query: invalidQuery,
+  });
+
+  // Expect errors due to validity
+  expect(resultInvalid.errors).toBeDefined();
+  expect(resultInvalid.data?.getFact).toBeUndefined();
 });
