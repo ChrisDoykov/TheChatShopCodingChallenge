@@ -8,7 +8,7 @@ The ENV file required to run this implementation has been sent over inside the e
 
 ## Running
 
-In order to run the development environment, please use `npm run start:dev`.
+In order to run the development environment, please use `npm run start:dev`. Once the server is running open `http://localhost:4000/` in your browser and use the Apollo Sandbox environment to fire off the `getFact` query by providing a sample email address such as "test@mail.com" under the `email` variable.
 
 ## Testing
 

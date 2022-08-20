@@ -14,7 +14,7 @@ import isEmail from "validator/lib/isEmail";
 import { getGraphQLRateLimiter } from "graphql-rate-limit";
 
 // Models
-import { Fact } from "../../../graphql/Fact";
+import { Fact } from "../../../models/Fact";
 
 // Constant declarations
 const factsLimit = 1;
