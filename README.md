@@ -4,7 +4,7 @@ This application is intended to showcase how a basic Apollo Server GraphQL imple
 
 ## IMPORTANT
 
-The ENV file required to run this implementation has been sent over inside the email with subject "Coding Challenge - Kristiyan Nikolov Doykov" and needs to be placed at the root of teh directory, alongside the `src` folder.
+The ENV file required to run this implementation has been sent over inside the email with subject "Coding Challenge - Kristiyan Nikolov Doykov" and needs to be placed at the root directory, alongside the `src` folder.
 
 ## Installing
 
